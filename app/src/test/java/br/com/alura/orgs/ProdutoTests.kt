@@ -1,14 +1,15 @@
 package br.com.alura.orgs
 
 import br.com.alura.orgs.model.Produto
-import org.junit.Assert.*
+import org.amshove.kluent.shouldBeFalse
+import org.amshove.kluent.shouldBeTrue
 import org.junit.Test
 import java.math.BigDecimal
 
-class TestaProduto {
+class ProdutoTests {
 
     @Test
-    fun aoCriarUmProdutoComOValorCertoDeveriaSerValido() {
+    fun `deve retornar verdadeiro quando valor for valido`() {
         val produtoValido = Produto(
             nome = "Banana",
             descricao = "Banana prata",
@@ -17,11 +18,11 @@ class TestaProduto {
 
         val valorValido = produtoValido.valorValido
 
-        assertTrue(valorValido)
+        valorValido.shouldBeTrue()
     }
 
     @Test
-    fun seOValorForMaiorQueCemReaisDeveDarErro() {
+    fun `deve retornar falso quando valor for maior que 100`() {
         val produtoInvalido = Produto(
             nome = "Carambola",
             descricao = "Amarela",
@@ -30,11 +31,11 @@ class TestaProduto {
 
         val valorValido = produtoInvalido.valorValido
 
-        assertFalse(valorValido)
+        valorValido.shouldBeFalse()
     }
 
     @Test
-    fun quandoOValorForMenorOuIgualAZeroValorValidoDeveSerFalso() {
+    fun `deve retornar falso quando valor for menor ou igual a zero`() {
         val produtoComValorIgualAZero = Produto(
             nome = "Lichia",
             descricao = "Doce",
@@ -50,8 +51,8 @@ class TestaProduto {
         val valorIgualAZeroEhValido = produtoComValorIgualAZero.valorValido
         val valorMenorQueZero = produtoComValorMenorQueZero.valorValido
 
-        assertFalse(valorIgualAZeroEhValido)
-        assertFalse(valorMenorQueZero)
+        valorIgualAZeroEhValido.shouldBeFalse()
+        valorMenorQueZero.shouldBeFalse()
     }
 
 }
